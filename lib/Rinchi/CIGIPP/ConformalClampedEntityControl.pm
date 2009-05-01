@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -189,7 +189,11 @@ from True North.
 sub yaw() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'yaw'} = $nv;
+    if (($nv>=0) and ($nv<=360.0)) {
+      $self->{'yaw'} = $nv;
+    } else {
+      carp "yaw must be from 0.0 to +360.0.";
+    }
   }
   return $self->{'yaw'};
 }
@@ -209,7 +213,11 @@ This attribute specifies the entity's geodetic latitude.
 sub latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'latitude'} = $nv;
+    if (($nv>=-90) and ($nv<=90.0)) {
+      $self->{'latitude'} = $nv;
+    } else {
+      carp "latitude must be from -90.0 to +90.0.";
+    }
   }
   return $self->{'latitude'};
 }
@@ -229,7 +237,11 @@ This attribute specifies the entity's geodetic longitude.
 sub longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'longitude'} = $nv;
+    if (($nv>=-180.0) and ($nv<=180.0)) {
+      $self->{'longitude'} = $nv;
+    } else {
+      carp "longitude must be from -180.0 to +180.0.";
+    }
   }
   return $self->{'longitude'};
 }

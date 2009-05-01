@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -480,9 +480,9 @@ specifies the latitude of the source point of the LOS test vector.
 sub source_latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_sourceLatitude'} = $nv;
+    $self->{'sourceLatitude_xOffset'} = $nv;
   }
-  return $self->{'_sourceLatitude'};
+  return $self->{'sourceLatitude_xOffset'};
 }
 
 #==============================================================================
@@ -501,9 +501,9 @@ specifies the X offset of the source endpoint of the LOS test segment.
 sub source_xoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_sourceXOffset'} = $nv;
+    $self->{'sourceLatitude_xOffset'} = $nv;
   }
-  return $self->{'_sourceXOffset'};
+  return $self->{'sourceLatitude_xOffset'};
 }
 
 #==============================================================================
@@ -522,9 +522,9 @@ specifies the longitude of the source point of the LOS test vector.
 sub source_longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_sourceLongitude'} = $nv;
+    $self->{'sourceLongitude_yOffset'} = $nv;
   }
-  return $self->{'_sourceLongitude'};
+  return $self->{'sourceLongitude_yOffset'};
 }
 
 #==============================================================================
@@ -543,9 +543,9 @@ specifies the Y offset of the source endpoint of the LOS test segment.
 sub source_yoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_sourceYOffset'} = $nv;
+    $self->{'sourceLongitude_yOffset'} = $nv;
   }
-  return $self->{'_sourceYOffset'};
+  return $self->{'sourceLongitude_yOffset'};
 }
 
 #==============================================================================
@@ -564,9 +564,9 @@ specifies the altitude of the source point of the LOS test vector.
 sub source_altitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_sourceAltitude'} = $nv;
+    $self->{'sourceAltitude_zOffset'} = $nv;
   }
-  return $self->{'_sourceAltitude'};
+  return $self->{'sourceAltitude_zOffset'};
 }
 
 #==============================================================================
@@ -585,9 +585,9 @@ specifies the Z offset of the source endpoint of the LOS test segment.
 sub source_zoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_sourceZOffset'} = $nv;
+    $self->{'sourceAltitude_zOffset'} = $nv;
   }
-  return $self->{'_sourceZOffset'};
+  return $self->{'sourceAltitude_zOffset'};
 }
 
 #==============================================================================

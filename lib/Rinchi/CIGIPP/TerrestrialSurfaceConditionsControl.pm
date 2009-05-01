@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -105,7 +105,7 @@ sub new {
     '_Swap2'                               => 'CCnnCC',
     'packetType'                           => 15,
     'packetSize'                           => 8,
-    'regionEntityIdent'                    => 0,
+    'region_entityIdent'                   => 0,
     'surfaceConditionIdent'                => 0,
     '_bitfields1'                          => 0, # Includes bitfields severity, scope, and surfaceConditionEnable.
     'severity'                             => 0,
@@ -177,9 +177,9 @@ This attribute specifies the region to which the surface conditions are confined
 sub region_ident() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_regionIdent'} = $nv;
+    $self->{'region_entityIdent'} = $nv;
   }
-  return $self->{'_regionIdent'};
+  return $self->{'region_entityIdent'};
 }
 
 #==============================================================================
@@ -198,9 +198,9 @@ condition attributes in this packet are applied.
 sub entity_ident() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'entityIdent'} = $nv;
+    $self->{'region_entityIdent'} = $nv;
   }
-  return $self->{'entityIdent'};
+  return $self->{'region_entityIdent'};
 }
 
 #==============================================================================
@@ -352,7 +352,7 @@ sub pack($) {
   $self->{'_Buffer'} = CORE::pack($self->{'_Pack'},
         $self->{'packetType'},
         $self->{'packetSize'},
-        $self->{'regionEntityIdent'},
+        $self->{'region_entityIdent'},
         $self->{'surfaceConditionIdent'},
         $self->{'_bitfields1'},    # Includes bitfields severity, scope, and surfaceConditionEnable.
         $self->{'coverage'},
@@ -380,7 +380,7 @@ sub unpack($) {
   my ($a,$b,$c,$d,$e,$f) = CORE::unpack($self->{'_Pack'},$self->{'_Buffer'});
   $self->{'packetType'}                          = $a;
   $self->{'packetSize'}                          = $b;
-  $self->{'regionEntityIdent'}                   = $c;
+  $self->{'region_entityIdent'}                  = $c;
   $self->{'surfaceConditionIdent'}               = $d;
   $self->{'_bitfields1'}                         = $e; # Includes bitfields severity, scope, and surfaceConditionEnable.
   $self->{'coverage'}                            = $f;

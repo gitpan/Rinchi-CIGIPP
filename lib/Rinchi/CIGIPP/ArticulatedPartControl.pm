@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -507,7 +507,11 @@ axis after yaw and pitch have been applied.
 sub roll() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'roll'} = $nv;
+    if (($nv>=-180.0) and ($nv<=180.0)) {
+      $self->{'roll'} = $nv;
+    } else {
+      carp "roll must be from -180.0 to +180.0.";
+    }
   }
   return $self->{'roll'};
 }
@@ -529,7 +533,11 @@ axis after yaw has been applied.
 sub pitch() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'pitch'} = $nv;
+    if (($nv>=-90) and ($nv<=90.0)) {
+      $self->{'pitch'} = $nv;
+    } else {
+      carp "pitch must be from -90.0 to +90.0.";
+    }
   }
   return $self->{'pitch'};
 }
@@ -550,7 +558,11 @@ the submodel coordinate system of the articulated part about its Z axis.
 sub yaw() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'yaw'} = $nv;
+    if (($nv>=0) and ($nv<=360.0)) {
+      $self->{'yaw'} = $nv;
+    } else {
+      carp "yaw must be from 0.0 to +360.0.";
+    }
   }
   return $self->{'yaw'};
 }
@@ -651,7 +663,6 @@ sub byte_swap($) {
   $self->{'_Buffer'} = CORE::pack($self->{'_Swap2'},$a,$b,$c,$d,$e,$f,$g,$h,$i,$j,$k);
   $self->unpack();
 
-print "byte_swap1: _bitfields1: $self->{'_bitfields1'}\n";
   return $self->{'_Buffer'};
 }
 

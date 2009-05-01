@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -51,7 +51,7 @@ Generator Interface - Sensor Extended Response data packet.
   $view_ident = $sensor_xresp->view_ident(15496);
   $sensor_ident = $sensor_xresp->sensor_ident(37242);
   $entity_ident_valid = $sensor_xresp->entity_ident_valid(Rinchi::CIGIPP->Valid);
-  $sensor_status = $sensor_xresp->sensor_status(Rinchi::CIGIPP->Invalid);
+  $sensor_status = $sensor_xresp->sensor_status(Rinchi::CIGIPP->Searching);
   $entity_ident = $sensor_xresp->entity_ident(64212);
   $gate_xsize = $sensor_xresp->gate_xsize(22491);
   $gate_ysize = $sensor_xresp->gate_ysize(15321);
@@ -92,8 +92,8 @@ sub new {
     '_Buffer'                              => '',
     '_ClassIdent'                          => 'f78b2b5c-200e-11de-bdcd-001c25551abc',
     '_Pack'                                => 'CCSCCSSSffIddd',
-    '_Swap1'                               => 'CCvvCvvvVVVVVVVVV',
-    '_Swap2'                               => 'CCnnCnnnNNNNNNNNN',
+    '_Swap1'                               => 'CCvCCvvvVVVVVVVVV',
+    '_Swap2'                               => 'CCnCCnnnNNNNNNNNN',
     'packetType'                           => 107,
     'packetSize'                           => 48,
     'viewIdent'                            => 0,
@@ -242,19 +242,21 @@ Sensor Status.
 
 This attribute indicates the current tracking state of the sensor.
 
-    Invalid   0
-    Valid     1
+    Searching            0
+    Tracking             1
+    ImpendingBreaklock   2
+    Breaklock            3
 
 =cut
 
 sub sensor_status() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    if (($nv==0) or ($nv==1)) {
+    if (($nv==0) or ($nv==1) or ($nv==2) or ($nv==3)) {
       $self->{'sensorStatus'} = $nv;
       $self->{'_bitfields1'} |= $nv &0x03;
     } else {
-      carp "sensor_status must be 0 (Invalid), or 1 (Valid).";
+      carp "sensor_status must be 0 (Searching), 1 (Tracking), 2 (ImpendingBreaklock), or 3 (Breaklock).";
     }
   }
   return ($self->{'_bitfields1'} & 0x03);
@@ -409,7 +411,11 @@ set to one (1) or two (2).
 sub track_point_latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'trackPointLatitude'} = $nv;
+    if (($nv>=-90) and ($nv<=90.0)) {
+      $self->{'trackPointLatitude'} = $nv;
+    } else {
+      carp "track_point_latitude must be from -90.0 to +90.0.";
+    }
   }
   return $self->{'trackPointLatitude'};
 }
@@ -431,7 +437,11 @@ set to one (1) or two (2).
 sub track_point_longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'trackPointLongitude'} = $nv;
+    if (($nv>=-180.0) and ($nv<=180.0)) {
+      $self->{'trackPointLongitude'} = $nv;
+    } else {
+      carp "track_point_longitude must be from -180.0 to +180.0.";
+    }
   }
   return $self->{'trackPointLongitude'};
 }
@@ -547,6 +557,9 @@ sub byte_swap($) {
   } else {
      $self->unpack();
   }
+#    '_Pack'                                => 'CCSCCSSSffIddd',
+#    '_Swap1'                               => 'CCvvCvvvVVVVVVVVV',
+#    '_Swap2'                               => 'CCnnCnnnNNNNNNNNN',
   my ($a,$b,$c,$d,$e,$f,$g,$h,$i,$j,$k,$l,$m,$n,$o,$p,$q) = CORE::unpack($self->{'_Swap1'},$self->{'_Buffer'});
 
   $self->{'_Buffer'} = CORE::pack($self->{'_Swap2'},$a,$b,$c,$d,$e,$f,$g,$h,$i,$j,$k,$m,$l,$o,$n,$q,$p);

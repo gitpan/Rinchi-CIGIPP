@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -422,7 +422,11 @@ This attribute specifies the geodetic latitude of the center of the rounded rect
 sub latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'latitude'} = $nv;
+    if (($nv>=-90) and ($nv<=90.0)) {
+      $self->{'latitude'} = $nv;
+    } else {
+      carp "latitude must be from -90.0 to +90.0.";
+    }
   }
 
   return $self->{'latitude'};
@@ -443,7 +447,11 @@ This attribute specifies the geodetic longitude of the center of the rounded rec
 sub longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'longitude'} = $nv;
+    if (($nv>=-180.0) and ($nv<=180.0)) {
+      $self->{'longitude'} = $nv;
+    } else {
+      carp "longitude must be from -180.0 to +180.0.";
+    }
   }
 
   return $self->{'longitude'};
@@ -466,7 +474,11 @@ width of the transition perimeter.
 sub size_x() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sizeX'} = $nv;
+    if ($nv > 0.0) {
+      $self->{'sizeX'} = $nv;
+    } else {
+      carp "size_x must be > 0.0.";
+    }
   }
 
   return $self->{'sizeX'};
@@ -489,7 +501,11 @@ width of the transition perimeter.
 sub size_y() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sizeY'} = $nv;
+    if ($nv > 0.0) {
+      $self->{'sizeY'} = $nv;
+    } else {
+      carp "size_y must be > 0.0.";
+    }
   }
 
   return $self->{'sizeY'};
@@ -512,7 +528,11 @@ rounded rectangle. The smaller the radius, the “tighter” the corner. A value
 sub corner_radius() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'cornerRadius'} = $nv;
+    if ($nv>=0.0) {
+      $self->{'cornerRadius'} = $nv;
+    } else {
+      carp "corner_radius must be > 0.0.";
+    }
   }
 
   return $self->{'cornerRadius'};
@@ -534,7 +554,11 @@ the rounded rectangle.
 sub rotation() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'rotation'} = $nv;
+    if (($nv>=-180.0) and ($nv<=180.0)) {
+      $self->{'rotation'} = $nv;
+    } else {
+      carp "rotation must be from -180.0 to +180.0.";
+    }
   }
 
   return $self->{'rotation'};
@@ -558,7 +582,11 @@ environmental region and those immediately outside the perimeter.
 sub transition_perimeter() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'transitionPerimeter'} = $nv;
+    if ($nv>=0.0) {
+      $self->{'transitionPerimeter'} = $nv;
+    } else {
+      carp "transition_perimeter must be >= 0.0.";
+    }
   }
 
   return $self->{'transitionPerimeter'};

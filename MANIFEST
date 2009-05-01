@@ -56,6 +56,7 @@ lib/Rinchi/CIGIPP/WeatherControl.pm
 Makefile.PL
 MANIFEST
 README
+Rinchi-CIGIPP.ppd
 t/Rinchi-CIGIPP.t
 test.pl
 

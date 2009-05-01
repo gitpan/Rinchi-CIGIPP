@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -477,9 +477,9 @@ specifies the latitude of the source endpoint of the LOS test segment.
 sub source_latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sourceLatitude'} = $nv;
+    $self->{'sourceLatitude_xOffset'} = $nv;
   }
-  return $self->{'sourceLatitude'};
+  return $self->{'sourceLatitude_xOffset'};
 }
 
 #==============================================================================
@@ -498,9 +498,9 @@ specifies the X offset of the source endpoint of the LOS test segment.
 sub source_xoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sourceXOffset'} = $nv;
+    $self->{'sourceLatitude_xOffset'} = $nv;
   }
-  return $self->{'sourceXOffset'};
+  return $self->{'sourceLatitude_xOffset'};
 }
 
 #==============================================================================
@@ -519,9 +519,9 @@ specifies the longitude of the source endpoint of the LOS test segment.
 sub source_longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sourceLongitude'} = $nv;
+    $self->{'sourceLongitude_yOffset'} = $nv;
   }
-  return $self->{'sourceLongitude'};
+  return $self->{'sourceLongitude_yOffset'};
 }
 
 #==============================================================================
@@ -540,9 +540,9 @@ specifies the Y offset of the source endpoint of the LOS test segment.
 sub source_yoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sourceYOffset'} = $nv;
+    $self->{'sourceLongitude_yOffset'} = $nv;
   }
-  return $self->{'sourceYOffset'};
+  return $self->{'sourceLongitude_yOffset'};
 }
 
 #==============================================================================
@@ -561,9 +561,9 @@ specifies the altitude of the source endpoint of the LOS test segment.
 sub source_altitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sourceAltitude'} = $nv;
+    $self->{'sourceAltitude_zOffset'} = $nv;
   }
-  return $self->{'sourceAltitude'};
+  return $self->{'sourceAltitude_zOffset'};
 }
 
 #==============================================================================
@@ -582,9 +582,9 @@ specifies the Z offset of the source endpoint of the LOS test segment.
 sub source_zoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'sourceZOffset'} = $nv;
+    $self->{'sourceAltitude_zOffset'} = $nv;
   }
-  return $self->{'sourceZOffset'};
+  return $self->{'sourceAltitude_zOffset'};
 }
 
 #==============================================================================
@@ -603,9 +603,9 @@ specifies the latitude of the destination endpoint of the LOS test segment.
 sub destination_latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'destinationLatitude'} = $nv;
+    $self->{'destinationLatitude_xOffset'} = $nv;
   }
-  return $self->{'destinationLatitude'};
+  return $self->{'destinationLatitude_xOffset'};
 }
 
 #==============================================================================
@@ -626,9 +626,9 @@ depending upon the value of the Destination Entity ID Valid flag.
 sub destination_xoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'destinationXOffset'} = $nv;
+    $self->{'destinationLatitude_xOffset'} = $nv;
   }
-  return $self->{'destinationXOffset'};
+  return $self->{'destinationLatitude_xOffset'};
 }
 
 #==============================================================================
@@ -647,9 +647,9 @@ specifies the longitude of the destination endpoint of the LOS test segment.
 sub destination_longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'destinationLongitude'} = $nv;
+    $self->{'destinationLongitude_yOffset'} = $nv;
   }
-  return $self->{'destinationLongitude'};
+  return $self->{'destinationLongitude_yOffset'};
 }
 
 #==============================================================================
@@ -670,9 +670,9 @@ depending upon the value of the Destination Entity ID Valid flag.
 sub destination_yoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'destinationYOffset'} = $nv;
+    $self->{'destinationLongitude_yOffset'} = $nv;
   }
-  return $self->{'destinationYOffset'};
+  return $self->{'destinationLongitude_yOffset'};
 }
 
 #==============================================================================
@@ -691,9 +691,9 @@ specifies the altitude of the destination endpoint of the LOS test segment.
 sub destination_altitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'destinationAltitude'} = $nv;
+    $self->{'destinationAltitude_zOffset'} = $nv;
   }
-  return $self->{'destinationAltitude'};
+  return $self->{'destinationAltitude_zOffset'};
 }
 
 #==============================================================================
@@ -714,9 +714,9 @@ depending upon the value of the Destination Entity ID Valid flag.
 sub destination_zoffset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'destinationZOffset'} = $nv;
+    $self->{'destinationAltitude_zOffset'} = $nv;
   }
-  return $self->{'destinationZOffset'};
+  return $self->{'destinationAltitude_zOffset'};
 }
 
 #==============================================================================

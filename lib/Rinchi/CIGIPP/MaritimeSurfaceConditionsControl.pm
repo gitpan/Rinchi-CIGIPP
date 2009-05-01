@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -103,7 +103,7 @@ sub new {
     '_Swap2'                               => 'CCnCCnNNNN',
     'packetType'                           => 13,
     'packetSize'                           => 24,
-    'regionEntityIdent'                    => 0,
+    'region_entityIdent'                   => 0,
     '_bitfields1'                          => 0, # Includes bitfields unused22, scope, whitecapEnable, and surfaceConditionsEnable.
     'scope'                                => 0,
     'whitecapEnable'                       => 0,
@@ -182,9 +182,9 @@ packet are applied.
 sub entity_ident() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'entityIdent'} = $nv;
+    $self->{'region_entityIdent'} = $nv;
   }
-  return $self->{'entityIdent'};
+  return $self->{'region_entityIdent'};
 }
 
 #==============================================================================
@@ -204,9 +204,9 @@ Note: Entity ID/Region ID is ignored if Scope is set to Global (0).
 sub region_ident() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_regionIdent'} = $nv;
+    $self->{'region_entityIdent'} = $nv;
   }
-  return $self->{'_regionIdent'};
+  return $self->{'region_entityIdent'};
 }
 
 #==============================================================================
@@ -383,7 +383,7 @@ sub pack($) {
   $self->{'_Buffer'} = CORE::pack($self->{'_Pack'},
         $self->{'packetType'},
         $self->{'packetSize'},
-        $self->{'regionEntityIdent'},
+        $self->{'region_entityIdent'},
         $self->{'_bitfields1'},    # Includes bitfields unused22, scope, whitecapEnable, and surfaceConditionsEnable.
         $self->{'_unused23'},
         $self->{'_unused24'},
@@ -415,7 +415,7 @@ sub unpack($) {
   my ($a,$b,$c,$d,$e,$f,$g,$h,$i,$j) = CORE::unpack($self->{'_Pack'},$self->{'_Buffer'});
   $self->{'packetType'}                          = $a;
   $self->{'packetSize'}                          = $b;
-  $self->{'regionEntityIdent'}                   = $c;
+  $self->{'region_entityIdent'}                  = $c;
   $self->{'_bitfields1'}                         = $d; # Includes bitfields unused22, scope, whitecapEnable, and surfaceConditionsEnable.
   $self->{'_unused23'}                           = $e;
   $self->{'_unused24'}                           = $f;

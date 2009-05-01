@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -336,9 +336,9 @@ This attribute specifies the latitude from which the HAT/HOT request is being ma
 sub latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_latitude'} = $nv;
+    $self->{'latitude_xOffset'} = $nv;
   }
-  return $self->{'_latitude'};
+  return $self->{'latitude_xOffset'};
 }
 
 #==============================================================================
@@ -357,9 +357,9 @@ made. This value is given relative to the entity's reference point.
 sub x_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_xOffset'} = $nv;
+    $self->{'latitude_xOffset'} = $nv;
   }
-  return $self->{'_xOffset'};
+  return $self->{'latitude_xOffset'};
 }
 
 #==============================================================================
@@ -377,9 +377,9 @@ This attribute specifies the longitude from which the HAT/HOT request is being m
 sub longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_longitude'} = $nv;
+    $self->{'longitude_yOffset'} = $nv;
   }
-  return $self->{'_longitude'};
+  return $self->{'longitude_yOffset'};
 }
 
 #==============================================================================
@@ -398,9 +398,9 @@ made. This value is given relative to the entity's reference point.
 sub y_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_yOffset'} = $nv;
+    $self->{'longitude_yOffset'} = $nv;
   }
-  return $self->{'_yOffset'};
+  return $self->{'longitude_yOffset'};
 }
 
 #==============================================================================
@@ -420,9 +420,9 @@ This attribute is ignored if Request Type is set to HOT (1).
 sub altitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_altitude'} = $nv;
+    $self->{'altitude_zOffset'} = $nv;
   }
-  return $self->{'_altitude'};
+  return $self->{'altitude_zOffset'};
 }
 
 #==============================================================================
@@ -441,9 +441,9 @@ made. This value is given relative to the entity's reference point.
 sub z_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_zOffset'} = $nv;
+    $self->{'altitude_zOffset'} = $nv;
   }
-  return $self->{'_zOffset'};
+  return $self->{'altitude_zOffset'};
 }
 
 #==========================================================================

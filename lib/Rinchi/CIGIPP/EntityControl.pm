@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -722,7 +722,11 @@ specifies an angular offset from the terrain surface polygon's orientation.
 sub roll() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'roll'} = $nv;
+    if (($nv>=-180.0) and ($nv<=180.0)) {
+      $self->{'roll'} = $nv;
+    } else {
+      carp "roll must be from -180.0 to +180.0.";
+    }
   }
   return $self->{'roll'};
 }
@@ -751,7 +755,11 @@ specifies an angular offset from the terrain surface polygon's orientation.
 sub pitch() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'pitch'} = $nv;
+    if (($nv>=-90) and ($nv<=90.0)) {
+      $self->{'pitch'} = $nv;
+    } else {
+      carp "pitch must be from -90.0 to +90.0.";
+    }
   }
   return $self->{'pitch'};
 }
@@ -775,7 +783,11 @@ heading of the entity. This angle is measured from a line parallel to the Prime 
 sub yaw() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'yaw'} = $nv;
+    if (($nv>=0) and ($nv<=360.0)) {
+      $self->{'yaw'} = $nv;
+    } else {
+      carp "yaw must be from 0.0 to +360.0.";
+    }
   }
   return $self->{'yaw'};
 }
@@ -796,9 +808,13 @@ geodetic latitude.
 sub latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_latitude'} = $nv;
+    if (($nv>=-90) and ($nv<=90.0)) {
+      $self->{'latitude_xOffset'} = $nv;
+    } else {
+      carp "latitude must be from -90.0 to +90.0.";
+    }
   }
-  return $self->{'_latitude'};
+  return $self->{'latitude_xOffset'};
 }
 
 #==============================================================================
@@ -817,9 +833,9 @@ parent's reference point along its parent's X axis.
 sub x_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_xOffset'} = $nv;
+    $self->{'latitude_xOffset'} = $nv;
   }
-  return $self->{'_xOffset'};
+  return $self->{'latitude_xOffset'};
 }
 
 #==============================================================================
@@ -838,9 +854,13 @@ geodetic longitude.
 sub longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_longitude'} = $nv;
+    if (($nv>=-180.0) and ($nv<=180.0)) {
+      $self->{'longitude_yOffset'} = $nv;
+    } else {
+      carp "longitude must be from -180.0 to +180.0.";
+    }
   }
-  return $self->{'_longitude'};
+  return $self->{'longitude_yOffset'};
 }
 
 #==============================================================================
@@ -859,9 +879,9 @@ parent's reference point along its parent's Y axis.
 sub y_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_yOffset'} = $nv;
+    $self->{'longitude_yOffset'} = $nv;
   }
-  return $self->{'_yOffset'};
+  return $self->{'longitude_yOffset'};
 }
 
 #==============================================================================
@@ -880,9 +900,9 @@ geodetic altitude.
 sub altitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_altitude'} = $nv;
+    $self->{'altitude_zOffset'} = $nv;
   }
-  return $self->{'_altitude'};
+  return $self->{'altitude_zOffset'};
 }
 
 #==============================================================================
@@ -901,9 +921,9 @@ parent's reference point along its parent's Z axis.
 sub z_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_zOffset'} = $nv;
+    $self->{'altitude_zOffset'} = $nv;
   }
-  return $self->{'_zOffset'};
+  return $self->{'altitude_zOffset'};
 }
 
 #==========================================================================

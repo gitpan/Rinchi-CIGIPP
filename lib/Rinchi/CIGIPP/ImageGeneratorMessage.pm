@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -280,7 +280,7 @@ sub byte_swap($) {
      $self->pack();
   }
   my ($a,$b,$c) = CORE::unpack($self->{'_Swap1'},$self->{'_Buffer'});
-  my $padded_message = substr($self->{'_Buffer'},12);
+  my $padded_message = substr($self->{'_Buffer'},4);
 
   $self->{'_Buffer'} = CORE::pack($self->{'_Swap2'},$a,$b,$c) . $padded_message;
   $self->unpack();

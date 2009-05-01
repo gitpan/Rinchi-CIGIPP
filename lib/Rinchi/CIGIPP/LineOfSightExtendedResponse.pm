@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -457,9 +457,9 @@ point is simply the destination point.
 sub latitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_latitude'} = $nv;
+    $self->{'latitude_xOffset'} = $nv;
   }
-  return $self->{'_latitude'};
+  return $self->{'latitude_xOffset'};
 }
 
 #==============================================================================
@@ -480,9 +480,9 @@ the intersected entity's X axis.
 sub x_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_xOffset'} = $nv;
+    $self->{'latitude_xOffset'} = $nv;
   }
-  return $self->{'_xOffset'};
+  return $self->{'latitude_xOffset'};
 }
 
 #==============================================================================
@@ -508,9 +508,9 @@ point is simply the destination point.
 sub longitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_longitude'} = $nv;
+    $self->{'longitude_yOffset'} = $nv;
   }
-  return $self->{'_longitude'};
+  return $self->{'longitude_yOffset'};
 }
 
 #==============================================================================
@@ -531,9 +531,9 @@ the intersected entity's Y axis.
 sub y_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_yOffset'} = $nv;
+    $self->{'longitude_yOffset'} = $nv;
   }
-  return $self->{'_yOffset'};
+  return $self->{'longitude_yOffset'};
 }
 
 #==============================================================================
@@ -559,9 +559,9 @@ is simply the destination point.
 sub altitude() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_altitude'} = $nv;
+    $self->{'altitude_zOffset'} = $nv;
   }
-  return $self->{'_altitude'};
+  return $self->{'altitude_zOffset'};
 }
 
 #==============================================================================
@@ -582,9 +582,9 @@ the intersected entity's Z axis.
 sub z_offset() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_zOffset'} = $nv;
+    $self->{'altitude_zOffset'} = $nv;
   }
-  return $self->{'_zOffset'};
+  return $self->{'altitude_zOffset'};
 }
 
 #==============================================================================

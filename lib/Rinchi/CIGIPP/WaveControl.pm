@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -104,7 +104,7 @@ sub new {
     '_Swap2'                               => 'CCnCCnNNNNNN',
     'packetType'                           => 14,
     'packetSize'                           => 32,
-    'regionEntityIdent'                    => 0,
+    'region_entityIdent'                   => 0,
     'waveIdent'                            => 0,
     '_bitfields1'                          => 0, # Includes bitfields unused26, breakerType, scope, and waveEnable.
     'breakerType'                          => 0,
@@ -185,9 +185,9 @@ packet are applied.
 sub region_ident() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_regionIdent'} = $nv;
+    $self->{'region_entityIdent'} = $nv;
   }
-  return $self->{'_regionIdent'};
+  return $self->{'region_entityIdent'};
 }
 
 #==============================================================================
@@ -207,9 +207,9 @@ Note: Entity ID/Region ID is ignored if Scope is set to Global (0).
 sub entity_ident() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'entityIdent'} = $nv;
+    $self->{'region_entityIdent'} = $nv;
   }
-  return $self->{'entityIdent'};
+  return $self->{'region_entityIdent'};
 }
 
 #==============================================================================
@@ -472,7 +472,7 @@ sub pack($) {
   $self->{'_Buffer'} = CORE::pack($self->{'_Pack'},
         $self->{'packetType'},
         $self->{'packetSize'},
-        $self->{'regionEntityIdent'},
+        $self->{'region_entityIdent'},
         $self->{'waveIdent'},
         $self->{'_bitfields1'},    # Includes bitfields unused26, breakerType, scope, and waveEnable.
         $self->{'_unused27'},
@@ -506,7 +506,7 @@ sub unpack($) {
   my ($a,$b,$c,$d,$e,$f,$g,$h,$i,$j,$k,$l) = CORE::unpack($self->{'_Pack'},$self->{'_Buffer'});
   $self->{'packetType'}                          = $a;
   $self->{'packetSize'}                          = $b;
-  $self->{'regionEntityIdent'}                   = $c;
+  $self->{'region_entityIdent'}                  = $c;
   $self->{'waveIdent'}                           = $d;
   $self->{'_bitfields1'}                         = $e; # Includes bitfields unused26, breakerType, scope, and waveEnable.
   $self->{'_unused27'}                           = $f;

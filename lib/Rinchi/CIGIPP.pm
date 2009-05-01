@@ -83,7 +83,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our %Handler_Setters = (
     StartOfMessage                        => \&SetStartOfMessageHandler,
@@ -1426,8 +1426,8 @@ sub write_messages_to_file() {
 
   $cigi->send_message(\@message,'172.0.0.1',4321);
 
-Where $buffer_number is the number of the buffer to send, and $ip_addr and 
-$port identify the destination.
+Where \@message is a reference to an array containing the data packets to send, 
+and $ip_addr and $port identify the destination.
 
 =cut
 
@@ -1457,6 +1457,37 @@ sub send_message() {
   );
 
   $socket->send($buffer);
+}
+
+#==============================================================================
+
+=item sub byte_swap(\@message)
+
+  $cigi->byte_swap(\@message);
+
+Where \@message is a reference to an array containing the data packets to swap. 
+
+=cut
+
+sub byte_swap() {
+  my ($self, $msg, $ip_addr, $port) = @_;
+
+  if(ref($msg) eq 'ARRAY') {
+    foreach my $pkt (@{$msg}) {
+      my $obj_cls = ref($pkt);
+      unless ($obj_cls =~ /Rinchi::CIGIPP::/) {
+        carp "I don't know what to do with an object of class $obj_cls";
+        return 0;
+      }
+    }
+  } else {
+    carp 'First argument must be an array reference';
+    return 0;
+  }
+  my $buffer='';
+  foreach my $pkt (@{$msg}) {
+    $pkt->byte_swap();
+  }
 }
 
 #==============================================================================
@@ -2072,7 +2103,7 @@ BEGIN {
   'Extended'                                 => 2,
 # IGMode
   'Reset'                                    => 0,
-  'Standby'                                  => 1,
+  'Standby'                                  => 0,
   'Operate'                                  => 1,
   'Debug'                                    => 2,
   'OfflineMaintenance'                       => 3,

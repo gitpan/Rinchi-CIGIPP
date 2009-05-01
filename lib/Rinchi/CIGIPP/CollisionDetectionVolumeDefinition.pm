@@ -32,7 +32,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Preloaded methods go here.
 
@@ -141,7 +141,7 @@ sub new {
     'x'                                    => 0,
     'y'                                    => 0,
     'z'                                    => 0,
-    'heightRadius'                         => 0,
+    'height_radius'                        => 0,
     'width'                                => 0,
     'depth'                                => 0,
     'roll'                                 => 0,
@@ -380,9 +380,9 @@ of the sphere.
 sub radius() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_radius'} = $nv;
+    $self->{'height_radius'} = $nv;
   }
-  return $self->{'_radius'};
+  return $self->{'height_radius'};
 }
 
 #==============================================================================
@@ -401,9 +401,9 @@ the cuboid along its Z axis.
 sub height() {
   my ($self,$nv) = @_;
   if (defined($nv)) {
-    $self->{'_height'} = $nv;
+    $self->{'height_radius'} = $nv;
   }
-  return $self->{'_height'};
+  return $self->{'height_radius'};
 }
 
 #==============================================================================
@@ -539,7 +539,7 @@ sub pack($) {
         $self->{'x'},
         $self->{'y'},
         $self->{'z'},
-        $self->{'heightRadius'},
+        $self->{'height_radius'},
         $self->{'width'},
         $self->{'depth'},
         $self->{'roll'},
@@ -577,7 +577,7 @@ sub unpack($) {
   $self->{'x'}                                   = $g;
   $self->{'y'}                                   = $h;
   $self->{'z'}                                   = $i;
-  $self->{'heightRadius'}                        = $j;
+  $self->{'height_radius'}                        = $j;
   $self->{'width'}                               = $k;
   $self->{'depth'}                               = $l;
   $self->{'roll'}                                = $m;
